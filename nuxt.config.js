@@ -1,9 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 
-/**
- * @nuxt axiosと通常のaxiosで使い方が異なっていた。
- * this.axios async $axios $get $post
- */
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
