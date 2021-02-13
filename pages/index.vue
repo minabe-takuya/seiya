@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-card class="bg-color-white">
+      <v-card>
         <h3>掲示板に投稿する</h3>
         <label for="name">
           ニックネーム
@@ -40,6 +40,9 @@ export default {
       posts:[]
     }
   },
+  /**
+   * pageが読み込まれた時
+   */
   created() {
     this.$axios.$get('/comments')
     .then(response =>{
@@ -76,9 +79,3 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
-.bg-color-white{
-  background-color: white;
-  color: black;
-}
-</style>

@@ -20,12 +20,13 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/base.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/axios.js'
-
+    '~/plugins/axios.js',
+    '~/plugins/api.js'
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -49,7 +50,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
