@@ -89,6 +89,8 @@
 </template>
 
 <script>
+// import axios from "axios";
+// axios.defaults.baseURL = "https://firestore.googleapis.com/v1/projects/seiya-project/databases/(default)/documents"
 export default {
   data () {
     return {

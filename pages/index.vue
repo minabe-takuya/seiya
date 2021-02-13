@@ -14,8 +14,11 @@
         <textarea id="comment" v-model="comment"></textarea>
         <br><br>
         <v-btn @click="createComment">送信</v-btn>
-        {{ sendResult }}
         <h2>掲示板</h2>
+        <div v-for="post in posts" :key='post.name'>
+          <div>名前：{{ post.fields.name.stringValue}}</div>
+          <div>コメント：{{ post.fields.comment.stringValue}}</div>
+        </div>
       </v-card>
     </v-col>
   </v-row>
@@ -24,7 +27,6 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
-import axios from 'axios'
 export default {
   components: {
     Logo,
@@ -34,12 +36,20 @@ export default {
     return{
       name:'',
       comment:'',
-      sendResult:''
+      sendResult:'',
+      posts:[]
     }
   },
+  created() {
+    this.$axios.$get('/comments')
+    .then(response =>{
+      console.log(response);
+      this.posts = response.documents;
+    })
+  },
   methods:{
-    createComment(){
-      axios.post('https://firestore.googleapis.com/v1/projects/seiya-project/databases/(default)/documents/comments',{
+    async createComment(){
+      await this.$axios.$post('/comments',{
           fields: {
             name:{
             stringValue:this.name
@@ -61,6 +71,7 @@ export default {
       })
       this.name=''
       this.comment=''
+      location.reload();
     }
   }
 }
