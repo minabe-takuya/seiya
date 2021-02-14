@@ -13,7 +13,8 @@
   </v-row>
 </template>
 <script lang="ts">
-export default {
+import Vue from 'vue'
+export default Vue.extend( {
   data(){
     return{
       email:'',
@@ -21,22 +22,14 @@ export default {
     }
   },
   methods:{
-    async createUser(){
-      await this.$api.$post('/accounts:signUp?key=AIzaSyCtdvZfHqPpaWB_vl8B1Ivkj1EQV003BFY',
-        {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true
-        })
-      .then(response =>{
-        console.log(response);
-      })
-      .catch(error =>{
-        console.log(error);
+    createUser():any{
+      this.$store.dispatch('register',{
+        email:this.email,
+        password:this.password
       })
       this.email=''
       this.password=''
     }
   }
-}
+})
 </script>

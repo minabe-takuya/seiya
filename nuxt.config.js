@@ -37,11 +37,13 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/router',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
   axios:{
     baseURL:"https://firestore.googleapis.com/v1/projects/seiya-project/databases/(default)/documents"
@@ -67,5 +69,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  generate: {
+    dir: 'public'
+  },
+  router:{
+
   }
+
 }

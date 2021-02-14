@@ -4,44 +4,37 @@
       <v-card>
         <v-card-title>ログイン</v-card-title>
         <label for="mail">メールアドレス:</label>
-        <input id="mail" type="email" name="mail"><br><br>
+        <input id="mail" type="email" v-model="email"><br><br>
         <label for="pass">パスワード:　　</label>
-        <input id="pass" type="password" name="pass"><br><br>
+        <input id="pass" type="password" v-model="password"><br><br>
         <v-btn @click="loginUser">ログイン</v-btn>
       </v-card>
     </v-col>
   </v-row>
 </template>
 <script lang="ts">
-export default {
+import Vue from 'vue'
+export default Vue.extend( {
+  middleware({store, redirect}){
+    if(store.getters.idToken){
+      return redirect('/mypage')
+    }
+  },
   data(){
     return{
-      mail:'',
-      pass:''
+      email:'' as string,
+      password:'' as string
     }
   },
   methods:{
-    async loginUser(){
-      await this.$axios.$post('/users',{
-        fields:{
-          mail:{
-            stringValue:this.mail
-          },
-          pass:{
-            stringValue: this.pass
-          }
-        },
+    loginUser():any{
+      this.$store.dispatch('login',{
+        email:this.email,
+        password:this.password
       })
-        .then(response =>{
-          console.log(response);
-        })
-        .catch(error =>{
-          console.log(error);
-        })
-      this.mail=''
-      this.pass=''
+      this.email=''
+      this.password=''
     }
   }
-}
-
+})
 </script>

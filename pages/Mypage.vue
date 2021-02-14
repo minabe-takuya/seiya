@@ -6,7 +6,14 @@
   </v-row>
 </template>
 <script lang="ts">
-
+import Vue from 'vue'
+export default Vue.extend({
+  middleware({store, redirect}){
+    if(!store.getters.idToken){
+      return redirect('/login')
+    }
+  }
+})
 </script>
 <style lang="scss" scoped>
 h1{

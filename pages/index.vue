@@ -25,13 +25,7 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  },
   data(){
     return{
       name:'',
@@ -44,11 +38,20 @@ export default {
    * pageが読み込まれた時
    */
   created() {
-    this.$axios.$get('/comments')
+    this.$axios.$get('/comments',{
+      headers:{
+        Authorization: `Bearer ${this.idToken}`
+      }
+    })
     .then(response =>{
       console.log(response);
       this.posts = response.documents;
     })
+  },
+  computed:{
+    idToken(){
+      return this.$store.getters.idToken;
+    }
   },
   methods:{
     async createComment(){
@@ -60,6 +63,10 @@ export default {
             comment:{
               stringValue: this.comment
             }
+          }
+        },{
+          headers:{
+            Authorization: `Bearer ${this.idToken}`
           }
         }
         )
@@ -74,7 +81,6 @@ export default {
       })
       this.name=''
       this.comment=''
-      location.reload();
     }
   }
 }
