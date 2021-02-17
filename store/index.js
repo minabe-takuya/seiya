@@ -20,6 +20,7 @@ export const actions = {
         .then(response =>{
           login.commit('updateIdToken',response.idToken);
           console.log(response);
+          localStorage.setItem('idToken',response.idToken);
         })
     },
   register(register, authData){
@@ -32,7 +33,21 @@ export const actions = {
       .then(response =>{
         register.commit('updateIdToken',response.idToken);
         console.log(response);
+        localStorage.setItem('idToken',response.idToken);
       })
+  },
+  logout({commit}){
+      commit('updateIdToken',null);
+      localStorage.removeItem('idToken')
+  },
+  /**
+   * ブラウザを閉じてもログインを継続できるようにする処理
+   * @param autologin
+   */
+  autoLogin(autologin){
+      const idToken = localStorage.getItem('idToken');
+      if(!idToken) return;
+    autologin.commit('updateIdToken',idToken)
   }
 
 }

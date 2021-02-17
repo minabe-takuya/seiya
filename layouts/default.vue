@@ -8,6 +8,8 @@
       <template v-if="isAuthentivated">
         <nuxt-link to="/mypage">マイページ</nuxt-link>
         <nuxt-link to="/">ログイン前掲示板</nuxt-link>
+        <nuxt-link to="/">ログイン前掲示板</nuxt-link>
+        <v-btn @click="logout">ログアウト</v-btn>
       </template>
     </header>
     <v-main>
@@ -24,7 +26,13 @@ export default Vue.extend({
     isAuthentivated(){
       return this.$store.getters.idToken !== null;
     }
+  },
+  methods:{
+    logout(){
+      this.$store.dispatch('logout');
+    }
   }
+
 })
 </script>
 <style lang="scss" scoped>
